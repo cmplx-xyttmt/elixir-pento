@@ -1,7 +1,7 @@
 defmodule PentoWeb.WrongLive do
   use Phoenix.LiveView
 
-  def mount(params, session, socket) do
+  def mount(_params, _session, socket) do
     rand_number = :rand.uniform(10)
     {:ok, assign(socket, score: 0, number: rand_number, message: "Make a guess:", time: time())}
   end
@@ -27,7 +27,7 @@ defmodule PentoWeb.WrongLive do
     DateTime.utc_now |> to_string
   end
 
-  def handle_event("guess", %{"number" => guess}=data, socket) do
+  def handle_event("guess", %{"number" => guess}=_data, socket) do
     number = socket.assigns.number
     {new_message, score_diff} = case String.to_integer(guess) do
       ^number -> {"You win, the secret number is #{guess}", 1}
